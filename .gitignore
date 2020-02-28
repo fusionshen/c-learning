@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+x86_64-8.1.0-release-posix-seh-rt_v6-rev0
+
