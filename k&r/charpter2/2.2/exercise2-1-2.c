@@ -41,7 +41,7 @@ int main()
 	printf("signed long min=%d\n", j);
 	unsigned long ul_i, m;
 	for (ul_i=1, m=0; ul_i>m; ul_i++, m++);
-	printf("unsigned long max=%u\n", m);         //需要注意无符号输出的格式为%u
+	printf("unsigned long max=%lu\n", m);         //需要注意无符号输出的格式为%u
 	system("pause");
 	return 0;
 }

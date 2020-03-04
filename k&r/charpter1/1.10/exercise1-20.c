@@ -22,7 +22,7 @@ int main()
     char preline[MAXLINE];
     char targetlines[MAXLINE][MAXLINE];
     char newlines[MAXLINE][MAXLINE];
-    do{
+    do {
         len = getline(line, MAXLINE);
         if (len == 0){
             break;
@@ -78,7 +78,7 @@ int getline(char s[], int lim)
     return i;
 }
 
-/* copy copy 'from' into 'to'; assume to is big enough */
+/* copy: copy 'from' into 'to'; assume to is big enough */
 void copy(char to[], char from[])
 {
     int i;
