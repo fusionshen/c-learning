@@ -53,7 +53,7 @@ double atof(char s[])
         for (; isdigit(s[i]); i++)
             e = 10 * e + (s[i] - '0');
         for (int m = 0; m < e; m++)
-            val *= sign1 == 1 ? 10 : 0.1;
+            val *= (sign1 == 1) ? 10 : 0.1;
     }
     return val;
 }
