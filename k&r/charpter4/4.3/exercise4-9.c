@@ -15,12 +15,11 @@ int isempty(void);
 int getch(void);
 void ungetch(int);
 
-char buf[BUFSIZE]; /* buffer for ungetch */
-int bufp = 0; /* next free position in buf */
+int buf; /* char改成int，用来可存放-1 */
 double var[26]; /* A-Z's value, must upper */
 double prev = 0.0; /* v: pre print val */
 
-/* 给计算机程序增加处理变量的命令（提供26个具有单个英文字母变量名的变量很容易）。增加一个变量存放最近打印的值。 */
+/* 以上介绍的getch与ungetch函数不能正确得处理压回的EOF。考虑压回EOF时应该如何处理？请实现你的设计方案。 */
 /* reverse polish calculator */
 int main()
 {
@@ -169,13 +168,26 @@ int getop(char s[])
 
 int getch(void) /* get a (prossibly pushed-back) charactor */
 {
-    return (bufp > 0) ? buf[--bufp] : getchar();
+    if (buf != 0) {
+        int c = buf;
+        printf("取回%c\n", c);
+        buf = 0;
+        return c;
+    }
+    else
+        return getchar();
+
 }
 
 void ungetch(int c) /* push character back on input */
 {
-    if (bufp >= BUFSIZ)
-        printf("ungetch: too many characters\n");
-    else
-        buf[bufp++] = c;
+    if (buf != 0)
+        printf("error: too many\n");
+    else {
+        if (c == 26) /* windows10系统中ctrl+z为什么是26？ */
+            c = -1;
+        printf("存入%c\n", c);
+        buf = c;
+    }
 }
+

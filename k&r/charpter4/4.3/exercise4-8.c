@@ -15,12 +15,11 @@ int isempty(void);
 int getch(void);
 void ungetch(int);
 
-char buf[BUFSIZE]; /* buffer for ungetch */
-int bufp = 0; /* next free position in buf */
+char buf;
 double var[26]; /* A-Z's value, must upper */
 double prev = 0.0; /* v: pre print val */
 
-/* 给计算机程序增加处理变量的命令（提供26个具有单个英文字母变量名的变量很容易）。增加一个变量存放最近打印的值。 */
+/* 假定最多只能压回一个字符。请相应得修改getch与ungetcha这两个函数 */
 /* reverse polish calculator */
 int main()
 {
@@ -169,13 +168,24 @@ int getop(char s[])
 
 int getch(void) /* get a (prossibly pushed-back) charactor */
 {
-    return (bufp > 0) ? buf[--bufp] : getchar();
+    if (buf != 0) {
+        int c = buf;
+        printf("取回%c\n", c);
+        buf = 0;
+        return c;
+    }
+    else
+        return getchar();
+
 }
 
 void ungetch(int c) /* push character back on input */
 {
-    if (bufp >= BUFSIZ)
-        printf("ungetch: too many characters\n");
-    else
-        buf[bufp++] = c;
+    if (buf != 0)
+        printf("error: too many\n");
+    else {
+        printf("存入%c\n", c);
+        buf = c;
+    }
 }
+
