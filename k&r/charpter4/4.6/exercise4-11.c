@@ -2,24 +2,17 @@
 #include <stdlib.h> /* for atof() */
 #include <ctype.h>
 #include <math.h>
-
+#include "calc.h"
 #define MAXOP 100 /* max size of operand or operator */
-#define NUMBER '0' /* signal that a number was found */
-#define BUFSIZE 100
 
-int getop(char[]);
-void push(double);
-double pop(void);
-int isempty(void);
-
-int getch(void);
-void ungetch(int);
-
-char buf;
 double var[26]; /* A-Z's value, must upper */
 double prev = 0.0; /* v: pre print val */
 
-/* 假定最多只能压回一个字符。请相应得修改getch与ungetch这两个函数 */
+/*
+** 修改getop函数，使其不必使用ungetch函数。提示：可以使用一个static类型的内部变量解决该问题。
+** cd "d:\self-learning\c-learning\k&r\charpter4\4.6\" ; if ($?) { gcc 'exercise4-11.c' 'stack.c' 'getop.c' 'getch.c' 'calc.h'
+** -o 'exercise4-11.exe' -Wall -g -O2 -static-libgcc -std=c11 -fexec-charset=GBK } ; if ($?) { &'.\exercise4-11' }
+*/
 /* reverse polish calculator */
 int main()
 {
@@ -106,86 +99,3 @@ int main()
     }
     return 0;
 }
-
-#define MAXVAL 100 /* maximun depth of val stack */
-
-int sp = 0; /* next free stack positon */
-double val[MAXVAL]; /* value stack */
-
-/* push: push f onto value stack */
-void push(double f)
-{
-    if (sp < MAXVAL)
-        val[sp++] = f;
-    else
-        printf("error: stack full, can't push %g\n", f);
-}
-
-/* pop: pop and return top value from stack */
-double pop(void)
-{
-    if (sp > 0)
-        return val[--sp];
-    else {
-        printf("error: stack empty\n");
-        return 0.0;
-    }
-}
-
-/* isempty: stack is empty */
-int isempty(void)
-{
-    return sp == 0;
-}
-
-/* getop: get next character or numberic operand */
-/* 增加负数情况 */
-int getop(char s[])
-{
-    int i, c;
-
-    while ((s[0] = c = getch()) == ' ' || c == '\t')
-        ;
-    s[1] = '\0';
-    if (!isdigit(c) && c != '.' && c != '-')
-        return c; /* not a number */
-    i = 0;
-    if (c == '-') /* maybe a number */
-        s[++i] = c = getch();
-    if (isdigit(c))  /* collect integer part */
-        while (isdigit(s[++i] = c = getch()))
-            ;
-    if (c == '.') /* collect fraction part*/
-        while (isdigit(s[++i] = c = getch()))
-            ;
-    s[i] = '\0';
-    if (c != EOF)
-        ungetch(c);
-    if (s[i-1] == '-')
-        return '-'; /* just - */
-    return NUMBER;
-}
-
-int getch(void) /* get a (prossibly pushed-back) charactor */
-{
-    if (buf != 0) {
-        int c = buf;
-        printf("取回%c\n", c);
-        buf = 0;
-        return c;
-    }
-    else
-        return getchar();
-
-}
-
-void ungetch(int c) /* push character back on input */
-{
-    if (buf != 0)
-        printf("error: too many\n");
-    else {
-        printf("存入%c\n", c);
-        buf = c;
-    }
-}
-

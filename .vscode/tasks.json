@@ -11,6 +11,10 @@
         "command": "gcc",   // 要使用的编译器，C++用g++
         "args": [
             "${file}",
+            // "${fileDirname}/getop.c",
+            // "${fileDirname}/getch.c",
+            // "${fileDirname}/stack.c",
+            // "${fileDirname}/calc.h",
             "-o",    // 指定输出文件名，不加该参数则默认输出a.exe，Linux下默认a.out
             "${fileDirname}/${fileBasenameNoExtension}.exe",
             "-g",    // 生成和调试有关的信息
