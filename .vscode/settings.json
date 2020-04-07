@@ -57,6 +57,11 @@
         "stdlib.h": "c",
         "cstdlib": "c",
         "math.h": "c",
-        "calc.h": "c"
+        "calc.h": "c",
+        "*.tcc": "c",
+        "bitset": "c",
+        "chrono": "c",
+        "system_error": "c",
+        "typeinfo": "c"
     },
 }

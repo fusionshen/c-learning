@@ -43,7 +43,7 @@ int main(void) {
     else
         printf("Element %d found at index %d.\n", n, index);
 
-    printf("binsearch() took %lu clocks (%f seconds)\n",
+    printf("binsearch() took %lu clocks (%g seconds)\n",
            (unsigned long) time_taken,
            (double) time_taken / CLOCKS_PER_SEC);
 
@@ -61,7 +61,7 @@ int main(void) {
     else
         printf("Element %d found at index %d.\n", n, index);
 
-    printf("binsearch2() took %lu clocks (%f seconds)\n",
+    printf("binsearch2() took %lu clocks (%g seconds)\n",
            (unsigned long) time_taken,
            (double) time_taken / CLOCKS_PER_SEC);
 
